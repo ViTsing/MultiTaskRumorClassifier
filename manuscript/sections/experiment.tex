@@ -1,2 +1,53 @@
 \section{Experiment}
 \label{sec:experiment}
+In this section we will introduce the experimental settings and results. Our GPU device is Tesla P100 with 16GB memory. We use PyTorch to implement all the codes.
+
+\subsection{Dataset}
+\label{sec:dataset}
+The dataset of our experiment is  PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and RumorEval\cite{DBLP:conf/semeval/EnayetE17}. The details of PHEME are shown in Table. \ref{tab:pheme} and the details of RumorEval are shown in Table. \ref{tab:RumorEval}
+
+\begin{table}[tbp]
+	\caption{PHEME}
+	\centering
+	\label{tab:pheme}
+	\resizebox{1\linewidth}{!}{
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\textbf{Events} & \textbf{Definition} & \textbf{Threads} & \textbf{Branch} & \textbf{Tweets}\\
+			\hline
+			Charlie Hebdo & the set of tweets &wer&1&\\
+			\hline
+			Sydney siege & a tweet &wer&1&\\
+			\hline
+			Ferguson & the set of rumor events&wer&1&\\
+			\hline
+			Ottawa Shooting & a rumor event&wer&1&\\
+			\hline		
+			Germanwings-crash & a rumor event&wer&1&\\
+			\hline			
+		\end{tabular}
+	}	
+\end{table}
+
+\begin{table}[tbp]
+	\caption{RumorEval}
+	\centering
+	\label{tab:RumorEval}
+	\resizebox{1\linewidth}{!}{
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\textbf{Events} & \textbf{Definition} & \textbf{Threads} & \textbf{Branch} & \textbf{Tweets}\\
+			\hline
+			Charlie Hebdo & the set of tweets &wer&1&\\
+			\hline
+			Sydney siege & a tweet &wer&1&\\
+			\hline
+			Ferguson & the set of rumor events&wer&1&\\
+			\hline
+			Ottawa Shooting & a rumor event&wer&1&\\
+			\hline		
+			Germanwings-crash & a rumor event&wer&1&\\
+			\hline			
+		\end{tabular}
+	}	
+\end{table}
