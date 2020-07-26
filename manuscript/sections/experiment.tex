@@ -2,28 +2,28 @@
 \label{sec:experiment}
 In this section we will introduce the experimental settings and results. Our GPU device is Tesla P100 with 16GB memory. We use PyTorch to implement all the codes.
 
-\subsection{Dataset}
+\subsection{Datasets and Baselines}
 \label{sec:dataset}
 The dataset of our experiment is  PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and RumorEval\cite{DBLP:conf/semeval/EnayetE17}. The details of PHEME are shown in Table. \ref{tab:pheme} and the details of RumorEval are shown in Table. \ref{tab:RumorEval}
 
-\begin{table}[tbp]
+\begin{table}[htbp]
 	\caption{PHEME}
 	\centering
 	\label{tab:pheme}
-	\resizebox{1\linewidth}{!}{
-		\begin{tabular}{|c|c|c|c|c|}
+	\resizebox{0.8\linewidth}{!}{
+		\begin{tabular}{|c|c|c|c|}
 			\hline
-			\textbf{Events} & \textbf{Definition} & \textbf{Threads} & \textbf{Branch} & \textbf{Tweets}\\
+			\textbf{Events} & \textbf{Threads} & \textbf{Tweets} & \textbf{Threads of Rumors}\\
 			\hline
-			Charlie Hebdo & the set of tweets &wer&1&\\
+			Charlie Hebdo &2079&38268&458\\
 			\hline
-			Sydney siege & a tweet &wer&1&\\
+			Sydney siege  &1221&23996&522\\
 			\hline
-			Ferguson & the set of rumor events&wer&1&\\
+			Ferguson &1143&24175&284\\
 			\hline
-			Ottawa Shooting & a rumor event&wer&1&\\
+			Ottawa Shooting &890&12284&470\\
 			\hline		
-			Germanwings-crash & a rumor event&wer&1&\\
+			Germanwings-crash L&469&4489&238\\
 			\hline			
 		\end{tabular}
 	}	
@@ -33,21 +33,31 @@ The dataset of our experiment is  PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and
 	\caption{RumorEval}
 	\centering
 	\label{tab:RumorEval}
-	\resizebox{1\linewidth}{!}{
-		\begin{tabular}{|c|c|c|c|c|}
+	\resizebox{0.6\linewidth}{!}{
+		\begin{tabular}{|c|c|c|c|}
 			\hline
-			\textbf{Events} & \textbf{Definition} & \textbf{Threads} & \textbf{Branch} & \textbf{Tweets}\\
+			\textbf{}  & \textbf{Threads} & \textbf{Branch} & \textbf{Tweets}\\
 			\hline
-			Charlie Hebdo & the set of tweets &wer&1&\\
+			Development  &25&215&281\\
 			\hline
-			Sydney siege & a tweet &wer&1&\\
+			Testing  &28&772&1049\\
 			\hline
-			Ferguson & the set of rumor events&wer&1&\\
-			\hline
-			Ottawa Shooting & a rumor event&wer&1&\\
+			Training &272&3030&4238\\
+			\hline	
+			\textbf{Total}  &325 &4017 &5568L \\
 			\hline		
-			Germanwings-crash & a rumor event&wer&1&\\
-			\hline			
 		\end{tabular}
 	}	
 \end{table}
+
+\subsection{Experimental Results}
+
+\subsection{Settings and Self Evaluations}
+
+\subsubsection{Details of Settings}
+
+\subsubsection{Different Embedding Strategies}
+
+\subsubsection{Parameters}
+
+\subsection{Discussions}
