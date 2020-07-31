@@ -55,23 +55,22 @@ However, source tweets in the dataset are collected by keywords of the event, wh
 \subsection{Basic Models for Text Classification}
 \label{sec:deeplearning_model} There are several basic models achieving great success on text classification tasks.  In this work, we adopt some effective models as the components of ART. Then we will introduce some of them.
 
-\subsubsection{FastText}
-FastText is proposed in 2017 \cite{DBLP:journals/tacl/BojanowskiGJM17, DBLP:journals/corr/JoulinGBDJM16, DBLP:conf/eacl/GraveMJB17}, which is an extension of the skip-gram model introduced by Mikolov et al. \cite{DBLP:conf/nips/MikolovSCCD13}. The main difference between FastText and skip-gram is that the predictable target of FastText is a classification label rather than a middle word. Also, FastText adopts hierarchical softmax to deal with the large corpus and vocabulary dictionary. With the help of these optimizations, FastText classifies large amounts of texts in a short time. For simplicity, we denote the output of FastText as $y_F'$ 
-
-\subsubsection{TextCNN}
-TextCNN uses multiple convolutional filters with different sizes to capture N-gram features. Compared to RNN based models, TextCNN reaches convergence faster due to the parallel computation. The tweets are usually short text (within 140 words) with sparse semantic. Consequently, CNN based models are more suitable than RNN based models for tweets classification where tweets are usually treated as a bag of words. The brief procedure of TextCNN is shown as follows.
-
-\begin{align}\label{eq:tcnn}
-V_x &= Embedding(x), \\
-m_3 &= maxpooling(ConV_3(V_x)),\\
-m_4 &= maxpooling(ConV_4(V_x)),\\
-m_5 &= maxpooling(ConV_5(V_x)),\\
-y_T' &= flatten(concat(m_3, m_4, m_5)),
+\subsubsection{Machine Learning based Model}
+\textbf{Naive Bayes} is a classical classifier. It assumes that all input variables are independent of each other. Although this model is not complicated, it can achieve a satisfying accuracy with high efficiency. Naive Bayes model is widely adopted in the short text classification problem, showing a pretty good performance. The procedure of Naive Bayes is denoted as following:
+\begin{align}\label{eq:nb}
+y_{N_{i}}' &= \frac{P(y_i)\prod_{j = 0}^d P(x_j|y_i)}{\prod_{j = 0}^d P(x_j)},\\
+y_N' &= concat(y_{N_{1}}',y_{N_{2}}',..., y_{N_{i}}'),
 \end{align}
-where the $Embedding()$ is the embedding layer, and $m$ is the output of different convolutional filters. By concatenating and flattening, the final output of TextCNN component is denoted as $y_T'$
+where $x_j$ is a dimension of $x$, corresponding to a word in tweet.  $y_i$ is a dimension of training sample $y$. $y_{N_{i}}'$ is a dimension of $y_N'$, representing the probability of a classification. $y_N'$ is the final output of Naive Bayes component.
 
-\subsubsection{BiLSTM}
-BiLSTM is Bi-directional Long Short-Term Memory, which is consisted of a forward-LSTM and a backward-LSTM. BiLSTM can effectively learn the long term dependency of sequential data. So we usually treat it as a evolution of LSTM and it is suitable for text data. The details of BiLSTM are following:
+\textbf{SGD} is the abbreviation of stochastic gradient descent, which is an optimization strategy in deep learning. SGD updates parameters of a single sample, so SGD works well on the dataset on a large scale. We denote the procedure of SGD as $S()$, and the output of SGD components is:
+\begin{equation}\label{eq:sgd}
+y_S' = S(TFIDF(x)),
+\end{equation}
+where TFIDF is Term Frequency-Inverse Document Frequency. Finally, the $y_S'$ represents the final output of SGD.
+
+\subsubsection{Deep Learning based Model}
+\textbf{BiLSTM} is Bi-directional Long Short-Term Memory, which is consisted of a forward-LSTM and a backward-LSTM. BiLSTM can effectively learn the long term dependency of sequential data. So we usually treat it as a evolution of LSTM and it is suitable for text data. The details of BiLSTM are following:
 \begin{align}\label{eq:lstm}
 x_tL/R &= Embedding(x_tL/R), \\
 x_t &= concat(x_tL, x_tR), \\
@@ -84,16 +83,15 @@ y_B^{'} &= o_t =  \sigma(W_o \cdot h_t),
 \end{align}
 where $x_t$ is the input at time step $t$, and it is concatenated by leftward unit $x_tL$ and rightward unit $x_tR$. BiLSTM consists of three gates: forget gate $f_t$, input gate $i_t$, and output gate $o_t$. Also, it has two memories: long-term memory $C_t$ and short-memory $h_t$. Finally, we use output $o_t$ as the final output of BiLSTM, denoted as $y_B^{'}$.
 
-\subsubsection{Naive Bayes}
-Naive Bayes is a classical classifier. It assumes that all input variables are independent of each other. Although this model is not complicated, it can achieve a satisfying accuracy with high efficiency. Naive Bayes model is widely adopted in the short text classification problem, showing a pretty good performance. The procedure of Naive Bayes is denoted as following:
-\begin{align}\label{eq:nb}
-y_{N_{i}}' &= \frac{P(y_i)\prod_{j = 0}^d P(x_j|y_i)}{\prod_{j = 0}^d P(x_j)},\\
-y_N' &= concat(y_{N_{1}}',y_{N_{2}}',..., y_{N_{i}}'),
+\textbf{FastText} is proposed in 2017 \cite{DBLP:journals/tacl/BojanowskiGJM17, DBLP:journals/corr/JoulinGBDJM16, DBLP:conf/eacl/GraveMJB17}, which is an extension of the skip-gram model introduced by Mikolov et al. \cite{DBLP:conf/nips/MikolovSCCD13}. The main difference between FastText and skip-gram is that the predictable target of FastText is a classification label rather than a middle word. Also, FastText adopts hierarchical softmax to deal with the large corpus and vocabulary dictionary. With the help of these optimizations, FastText classifies large amounts of texts in a short time. For simplicity, we denote the output of FastText as $y_F'$.
+
+\textbf{TextCNN} \cite{DBLP:conf/emnlp/Kim14} uses multiple convolutional filters with different sizes to capture N-gram features. Compared to RNN based models, TextCNN reaches convergence faster due to the parallel computation. The tweets are usually short text (within 140 words) with sparse semantic. Consequently, CNN based models are more suitable than RNN based models for tweets classification where tweets are usually treated as a bag of words. The brief procedure of TextCNN is shown as follows.
+
+\begin{align}\label{eq:tcnn}
+V_x &= Embedding(x), \\
+m_3 &= maxpooling(ConV_3(V_x)),\\
+m_4 &= maxpooling(ConV_4(V_x)),\\
+m_5 &= maxpooling(ConV_5(V_x)),\\
+y_T' &= flatten(concat(m_3, m_4, m_5)),
 \end{align}
-where $x_j$ is a dimension of $x$, corresponding to a word in tweet.  $y_i$ is a dimension of training sample $y$. $y_{N_{i}}'$ is a dimension of $y_N'$, representing the probability of a classification. $y_N'$ is the final output of Naive Bayes component.
-\subsubsection{SGD}
-SGD is the abbreviation of stochastic gradient descent, which is an optimization strategy in deep learning. SGD updates parameters of a single sample, so SGD works well on the dataset on a large scale. We denote the procedure of SGD as $S()$, and the output of SGD components is:
-\begin{equation}\label{eq:sgd}
-y_S' = S(TFIDF(x)),
-\end{equation}
-where TFIDF is Term Frequency-Inverse Document Frequency. Finally, the $y_S'$ represents the final output of SGD.
+where the $Embedding()$ is the embedding layer, and $m$ is the output of different convolutional filters. By concatenating and flattening, the final output of TextCNN component is denoted as $y_T'$.
