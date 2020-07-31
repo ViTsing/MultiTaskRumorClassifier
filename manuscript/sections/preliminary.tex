@@ -10,18 +10,17 @@
 	\label{fig:data_format}
 \end{figure}
 
-In this section, we will introduce the essential notations, problem definitions, and background knowledge of rumor tracking. The frequently used notations are summarized in Table.~\ref{tab:notations}.
+In this section, we proceed to introduce the notations, problem definitions, and background knowledge of rumor tracking. The frequently used notations are summarized in Table.~\ref{tab:notations}.
 
 \subsection{Social Network Data}
 \label{sec:social_network_data}
-We use benchmark dataset PHEME\cite{DBLP:conf/coling/KochkinaLZ18} and RumorEval\cite{DBLP:conf/semeval/EnayetE17} from twitter. The data format is shown in Fig.\ref{fig:data_format}. As we can see, a tweet thread is a source tweet with all its retweets and comments. These retweets and comments are from several branches, which seems like a tree structure. A tweet branch consists of a series of tweets. For a tweet, it contains various types of features, including content, publication time, screen name, etc. The statistical details are shown in Table\ref{tab:pheme} and Table\ref{tab:RumorEval}.
+We use two benchmark datasets PHEME\cite{DBLP:conf/coling/KochkinaLZ18} and RumorEval\cite{DBLP:conf/semeval/EnayetE17}. The data format is shown in Fig. \ref{fig:data_format}. As we can see, a tweet thread is a source tweet with all its retweets and comments. These retweets and comments are from several branches, which seems like a tree structure. A tweet branch consists of a series of tweets. For a tweet, it contains various types of features, including content, publication time, screen name, etc. The statistical details are shown in Table \ref{tab:pheme} and Table \ref{tab:RumorEval}.
 
 
-\begin{table}[hbp]
+\begin{table}
 	\caption{Notation Summarization}
 	\centering
 	\label{tab:notations}
-	\resizebox{0.9\linewidth}{!}{
 		\begin{tabular}{|c|l|c|l|}
 			\hline
 			\textbf{Notation} & \textbf{Definition} & \textbf{Notation}& \textbf{Definition}\\
@@ -43,7 +42,6 @@ We use benchmark dataset PHEME\cite{DBLP:conf/coling/KochkinaLZ18} and RumorEval
 			$y \in R^m$ & a training label&&\\
 			\hline						
 		\end{tabular}
-	}	
 \end{table}
 
 \subsection{Problem Definition}
