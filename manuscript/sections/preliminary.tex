@@ -10,7 +10,7 @@
 	\label{fig:data_format}
 \end{figure}
 
-In this section, we proceed to introduce the notations, problem definitions, and background knowledge of rumor tracking. The frequently used notations are summarized in Table.~\ref{tab:notations}.
+In this section, we proceed to introduce the notations, problem definitions, and background knowledge of rumor tracking. The frequently used notations are summarized in Table~\ref{tab:notations}.
 
 \subsection{Social Network Data}
 \label{sec:social_network_data}
@@ -61,7 +61,7 @@ We use two benchmark datasets PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and Rum
 \label{sec:problem}
 Let $T = \left\{t_1, t_2, ..., t_n \right\}$ denote a set of tweets and each tweet is denoted as $t_n$. Let $C = \left\{c_1, c_2, ... , c_m \right\}$ denote a set of rumor events and $c_m$ denotes a particular rumor event. Each tweet is assigned to only one rumor event. For each given tweet $t_n$, the goal of rumor tracking is to find the most relevant rumor event. In this work, we transform the binary rumor tracking problem (relevant/irrelevant) into an m-way classification problem. 
 
-We conduct a preprocessing procedure to embed the $T$ and $C$ into vectors. In preprocessing, a tweet $t_n \in T $ is padded to a fixed length $l$. Then, each word in the l-length tweet $t_n$ is embedded to a d-dimensional vector so that the $t_n$ is transformed to a tensor $x^{(i)} \in R^{l*d}$. Also, we embed each event $c_m \in C$ to a one-hot vector $y^{(i)} \in R^m$. By preprocessing, the dataset is transformed into: $$\left\{ (x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}),..., (x^{(n)}, y^{(n)}) \right\}, x^{(i)} \in R^{l*d}, y^{(i)} \in R^m $$ The goal is transformed to predicting the $y^{(i)}$ for a given $x^{(i)}$. Also, for a testing sample $x^{(i)}$, we set the branch or thread that it belongs to is unknown in advance. 
+We conduct a preprocessing procedure to embed the $T$ and $C$ into vectors. In preprocessing, a tweet $t_n \in T $ is padded to a fixed length $l$. Then, each word in the $l$-length tweet $t_n$ is embedded to a d-dimensional vector so that $t_n$ is transformed to a tensor $x^{(i)} \in R^{l*d}$. Also, we embed each event $c_m \in C$ to a one-hot vector $y^{(i)} \in R^m$. By preprocessing, the dataset is transformed into: $$\left\{ (x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}),..., (x^{(n)}, y^{(n)}) \right\}, x^{(i)} \in R^{l*d}, y^{(i)} \in R^m $$ The goal is transformed to predicting the $y^{(i)}$ for a given $x^{(i)}$. For a testing sample $x^{(i)}$, we set the branch or thread that it belongs to is unknown in advance. 
 
 In a rumor event, source tweets are collected by keywords, and therefore the source tweets are highly similar to each other. We find that the similarity of source tweet disturbs the classification of tweets. To verify our assumption, we conduct an experiment to train a rumor event classifier with source tweets as inputs. The classification result suggests that the accuracy reaches even 100\%. Consequently, we cut down the link between tweet and its source, and then process each tweet independently to get a convincing result. 
 
