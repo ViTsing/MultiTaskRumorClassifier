@@ -16,10 +16,11 @@ In this section, we proceed to introduce the notations, problem definitions, and
 \label{sec:social_network_data}
 We use two benchmark datasets PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and RumorEval \cite{DBLP:conf/semeval/EnayetE17}. Each dataset is a set of rumor events and each event is a set of tweet threads. The data format of a tweet thread is shown in Fig.~\ref{fig:data_format}. Each tweet thread is a tree structure. The root node corresponds to source tweet and the branches correspond to a tweet sequences that includes retweets and comments. A tweet contains various types of features, including content, publication time, screen name, etc. The statistical details of PHEME and RumorEval are shown in Table \ref{tab:pheme} and Table \ref{tab:RumorEval}, respectively.
 
-\begin{table}
+\begin{table}[tbp]
 	\caption{Notation Summarization}
 	\centering
 	\label{tab:notations}
+	\resizebox{0.55\linewidth}{!}{
 	\begin{tabular}{|c|l|}
 		\hline
 		\textbf{Notation} & \textbf{Definition}\\
@@ -55,6 +56,7 @@ We use two benchmark datasets PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and Rum
 		$K_y$ & set of all components outputs\\		
 		\hline						
 	\end{tabular}
+	}
 \end{table}
 
 \subsection{Problem Definition}
