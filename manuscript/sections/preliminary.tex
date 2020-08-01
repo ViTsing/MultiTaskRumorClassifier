@@ -47,7 +47,7 @@ We use two benchmark datasets PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and Rum
 		\hline
 		$R$ & predictable result of ART\\
 		\hline
-		$y'$& output of the ART\\
+		$y'$& output of ART\\
 		\hline
 		$x \in R^{l*d}$ & a processed sample\\
 		\hline
@@ -63,7 +63,7 @@ We use two benchmark datasets PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and Rum
 \label{sec:problem}
 Let $T = \left\{t_1, t_2, ..., t_n \right\}$ denote a set of tweets and each tweet is denoted as $t_n$. Let $C = \left\{c_1, c_2, ... , c_m \right\}$ denote a set of rumor events and $c_m$ denotes a particular rumor event. Each tweet is assigned to only one rumor event. For each given tweet $t_n$, the goal of rumor tracking is to find the most relevant rumor event. In this work, we transform the binary rumor tracking problem (relevant/irrelevant) into an m-way classification problem. 
 
-We conduct a preprocessing procedure to embed the $T$ and $C$ into vectors. In preprocessing, a tweet $t_n \in T $ is padded to a fixed length $l$. Then, each word in the $l$-length tweet $t_n$ is embedded to a d-dimensional vector so that $t_n$ is transformed to a tensor $x^{(i)} \in R^{l*d}$. Also, we embed each event $c_m \in C$ to a one-hot vector $y^{(i)} \in R^m$. By preprocessing, the dataset is transformed into: $$\left\{ (x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}),..., (x^{(n)}, y^{(n)}) \right\}, x^{(i)} \in R^{l*d}, y^{(i)} \in R^m $$ The goal is transformed to predicting the $y^{(i)}$ for a given $x^{(i)}$. \textcolor{blue}{For a testing sample $x^{(i)}$, we set the branch or thread that it belongs to is unknown in advance. }
+We conduct a preprocessing procedure to embed the $T$ and $C$ into vectors. In preprocessing, a tweet $t_n \in T $ is padded to a fixed length $l$. Then, each word in the $l$-length tweet $t_n$ is embedded to a d-dimensional vector so that $t_n$ is transformed to a tensor $x^{(i)} \in R^{l*d}$. Also, we embed each event $c_m \in C$ to a one-hot vector $y^{(i)} \in R^m$. By preprocessing, the dataset is transformed into: $$\left\{ (x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}),..., (x^{(n)}, y^{(n)}) \right\}, x^{(i)} \in R^{l*d}, y^{(i)} \in R^m $$ The goal is transformed to predicting the $y^{(i)}$ for a given $x^{(i)}$. \textcolor{blue}{Existing work \cite{DBLP:conf/www/ChengNB20} links a testing sample $x^{(i)}$ with its source tweet. This setting disturbs the fairness of classification when predicting. In this work, we ensure that the branch and thread of a testing sample $x^{(i)}$ is unknown when predicting. The detailed reasons are introduced in the following paragraph.}
 
 In a rumor event, the source tweets are collected by keywords such that the semantic similarity between the source tweets is usually high. We observe that this high similarity between the source tweets disturbs the classification performance. To verify our assumption, we conduct an experiment to train a rumor event classifier by using source tweets as input. The classification result suggests that the accuracy even reaches 100\%. Consequently, we cut down the link between tweet and its source, and then process each tweet independently to obtain a convincing result. 
 
@@ -72,22 +72,22 @@ In a rumor event, the source tweets are collected by keywords such that the sema
 In this section, we proceed to introduce some basic text classification models.
 
 \subsubsection{Non-Deep Learning based Models}
-\textbf{Naive Bayes} \cite{DBLP:journals/ml/DomingosP97} is widely adopted for short text classification which shows good performance. It assumes that all input variables are independent of each other. \textcolor{blue}{By multiplication the conditional probability, it achieves classification task with small quantities of parameters.} The procedure of Naive Bayes is formalized as follows:
+\textbf{Naive Bayes} \cite{DBLP:journals/ml/DomingosP97} is widely adopted for short text classification which shows good performance. It assumes that all input variables are independent of each other. \textcolor{blue}{By multiplying the conditional probabilities of each word, it achieves satisfied performances on text classification task with small quantities of parameters.} The procedure of Naive Bayes is formalized as follows:
 \begin{align}\label{eq:nb}
 y_{N_{i}}' &= \frac{P(y_i)\prod_{j = 0}^d P(x_j|y_i)}{\prod_{j = 0}^d P(x_j)},\\
 y_N' &= concat(y_{N_{1}}',y_{N_{2}}',..., y_{N_{i}}'),
 \end{align}
 where $x_j$ is a component of $x$, corresponding to a word in tweet.  $y_i$ is a component of training sample $y$. $y_{N_{i}}'$ is a component of $y_N'$, representing the probability of a classification. We choose Naive Bayes as  a component of ART and  $y_N'$ is the final output.
 
-\textbf{SGD} \cite{avriel2003nonlinear} is a parameter update policy in machine learning, which updates parameters for each single sample. SGD based machine learning models are trained on large scale datasets by incremental learning. We denote the procedure of SGD based model as $S()$, and the output of SGD components is:
+\textbf{SGD} \cite{avriel2003nonlinear} is a parameter updating policy in machine learning, which is widely adopted in text classification with large-scaled corpus. SGD based machine learning models are trained on large scale datasets by updating parameters on each single sample. We denote the procedure of SGD model as $S()$, and the output of SGD model is:
 \begin{equation}\label{eq:sgd}
 y_S' = S(TFIDF(x)),
 \end{equation}
-where TFIDF is Term Frequency-Inverse Document Frequency. Finally, we choose the SGD based classification model as the component of the ART, and $y_S'$ denotes its output.
+where TFIDF is Term Frequency-Inverse Document Frequency. Finally, we choose SGD based classification model as the component of ART.
 
 \subsubsection{Deep Learning based Models}
 
-\textbf{FastText} \cite{DBLP:journals/tacl/BojanowskiGJM17, DBLP:journals/corr/JoulinGBDJM16, DBLP:conf/eacl/GraveMJB17} is an extension of the skip-gram model introduced by Mikolov et al. \cite{DBLP:conf/nips/MikolovSCCD13}. The main difference between FastText and skip-gram is that the predictable target of FastText is a classification label rather than a middle word. Also, FastText adopts hierarchical softmax to deal with the large corpus and vocabulary dictionary. With the help of these optimizations, FastText classifies large amounts of texts in a short time. We choose the FastText as a component of the ART and denote its output as $y_F'$.
+\textbf{FastText} \cite{DBLP:journals/tacl/BojanowskiGJM17, DBLP:journals/corr/JoulinGBDJM16, DBLP:conf/eacl/GraveMJB17} is an extension of the skip-gram model introduced by Mikolov et al. \cite{DBLP:conf/nips/MikolovSCCD13}. The main difference between FastText and skip-gram is that the predictable target of FastText is a classification label rather than a middle word. Also, FastText adopts hierarchical softmax to deal with the large corpus and vocabulary dictionary. With the help of these optimizations, FastText classifies large amounts of texts in a short time. We choose FastText as a component of ART and its output is denote as $y_F'$.
 
 \textbf{BiLSTM} \cite{DBLP:journals/neco/HochreiterS97} is Bi-directional Long Short-Term Memory, which is consisted of a forward-LSTM and a backward-LSTM. BiLSTM effectively learns the long term dependency of sequential data. So we usually treat it as a evolution of LSTM and it is suitable for text data. The details of BiLSTM are following:
 \begin{align}\label{eq:lstm}
@@ -100,9 +100,9 @@ C_t &= (1-f_t) C_{t-1} + f_t \widetilde{C_t},\\
 h_t &=o_t \* \tanh(C_t),\\
 y_B^{'} &= o_t =  \sigma(W_o \cdot h_t),
 \end{align}
-where $x_t$ is the input at time step $t$, and it is concatenated by leftward unit $x_tL$ and rightward unit $x_tR$. BiLSTM consists of three gates: forget gate $f_t$, input gate $i_t$, and output gate $o_t$. Also, it has two memories: long-term memory $C_t$ and short-memory $h_t$. Finally, we use output $o_t$ as the final output of BiLSTM, denoted as $y_B^{'}$.
+where $x_t$ is the input at time step $t$, and it is concatenated by leftward unit $x_tL$ and rightward unit $x_tR$. BiLSTM consists of three gates: forget gate $f_t$, input gate $i_t$, and output gate $o_t$. Also, it has two memories: long-term memory $C_t$ and short-memory $h_t$. Finally, we use output $o_t$ as the final output of BiLSTM, which is denoted as $y_B^{'}$.
 
-\textbf{TextCNN} \cite{DBLP:conf/emnlp/Kim14} uses multiple convolutional filters with different sizes to capture N-gram features. Compared to RNN based models, TextCNN reaches convergence faster due to the parallel computation. The tweets are usually short text (within 140 words) with sparse semantic. Consequently, CNN based models are more suitable than RNN based models for tweets classification where tweets are usually treated as a bag of words. We choose the TextCNN as one of the components of the ART. The brief procedure of TextCNN is shown as follows,
+\textbf{TextCNN} \cite{DBLP:conf/emnlp/Kim14} uses multiple convolutional filters with different sizes to capture N-gram features. Compared to RNN based models, TextCNN reaches convergence faster due to the parallel computation. The tweets are usually short text (within 140 words) with sparse semantic. Consequently, CNN based models are more suitable than RNN based models for tweets classification because tweets are usually treated as a bag of words. We choose TextCNN as one of the components of ART. The brief procedure of TextCNN is shown as follows,
 
 \begin{align}\label{eq:tcnn}
 V_x &= Embedding(x), \\
@@ -111,4 +111,4 @@ m_4 &= maxpooling(ConV_4(V_x)),\\
 m_5 &= maxpooling(ConV_5(V_x)),\\
 y_T' &= flatten(concat(m_3, m_4, m_5)),
 \end{align}
-where the $Embedding()$ is the embedding layer, and $m$ is the output of different convolutional filters. By concatenating and flattening, the final output of TextCNN component is denoted as $y_T'$.
+where the $Embedding()$ is the embedding layer, and $m$ is the output of different convolutional filter. By concatenating and flattening, TextCNN generates the output that is denoted as $y_T'$.
