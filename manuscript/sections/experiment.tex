@@ -83,7 +83,7 @@ The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that
 			BiLSTM  & 0.972/0.909/0.910/0.895/0.901
 			&0.920 &0.917 \\
 			\hline
-			TextCNN  & 0.991/\textbf{0.964}/0.939/0.934/0.900
+			TextCNN  & \textbf{0.991}/\textbf{0.964}/0.939/0.934/0.900
 			& 0.953 & 0.946 \\
 			\hline
 			FastText + Dense  &0.979/0.951/0.936/0.918/0.964
@@ -107,7 +107,7 @@ The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that
 			VRoC  &0.640/0.703/0.611/0.685/0.520
 			& 0.644 & 0.632 \\
 			\hline
-			ART  & \textbf{0.979}/0.961/\textbf{0.952}/\textbf{0.943}/0.937
+			ART  & 0.979/0.961/\textbf{0.952}/\textbf{0.943}/0.937
 			& \textbf{0.956} & \textbf{0.955} \\
 			\hline					
 		\end{tabular}
@@ -258,7 +258,7 @@ As introduced in Section~\ref{sec:process_embedding}, there are three embedding 
 \end{figure}
 
 \subsection{Details of Settings and Parameters}
-In this part, we proceed to introduce the detailed settings of the experiments. The chosen optimizer in the deep learning based model is Adam. The loss function is cross-entropy. We split the whole dataset into a proportion of 6:2:2. For a deep learning based model, we  run it more than 50 epochs until convergence. Also, as shown in Fig.~\ref{fig:parameter}, we conduct various experiments to find the best parameters.
+In this part, we proceed to introduce the detailed settings of the experiments. The chosen optimizer in the deep learning based model is Adam. The loss function is cross-entropy. We split the whole dataset into a proportion of 6:2:2. For a deep learning based model, we  run it more than 50 epochs until convergence. The voting strategy is not suitable for pair-wise adding baselines (Such as FastText + Dense), and therefore we aggregate them by adding the output vectors after softmax. Also, as shown in Fig.~\ref{fig:parameter}, we conduct various experiments to find the best parameters.
 
 For simplicity, we only show the parameter adjustment on RumorEval as an example. We choose the embedding dimension, batch size, and hidden units as the representative parameters. During each running, we vary one parameter and fix the other parameters to record the variation trend of ART. The Fig.~\ref{fig:parameter_events} shows the results during parameter adjustment on each event. The Fig.~\ref{fig:parameter_art} records the performance of ART during parameter adjustment. It suggests that when the embedding dim is 32, batch size is 64, and hidden units is 100, the ART gets the best performance on RumorEval dataset. The smaller parameter value corresponds to the small scale of RumorEval.
 
