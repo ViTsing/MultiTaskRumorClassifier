@@ -6,7 +6,7 @@ In this section, we proceed to introduce the experimental settings and results. 
 \label{sec:dataset}
 The datasets of our experiment are  PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and RumorEval \cite{DBLP:conf/semeval/EnayetE17}. These two datasets are widely used in the rumor detection research area. The details of PHEME are shown in Table.\ref{tab:pheme} and the details of RumorEval are shown in Table.\ref{tab:RumorEval}. The original PHEME contains 9 events and 4 of them are sparse, so we usually use PHEME-5 (following the existing works \cite{DBLP:conf/www/ChengNB20}). The PHEME-5 is formed by the top-5 scaled events, which contains 5802 threads and 1972 in them are rumors. 
 
-To demonstrate the effectiveness of ART, we choose baselines as comparisons, including (Naive Bayes, SGD, Dense, BiLSTM) \cite{DBLP:conf/emnlp/QazvinianRRM11}, FastText\cite{DBLP:conf/eacl/GraveMJB17}, TextCNN\cite{DBLP:conf/emnlp/Kim14}, VRoC \cite{DBLP:conf/www/ChengNB20}, and some combinations of them. All the chosen baselines are contained in Table.\ref{tab:results_RE}. We use accuracy and micro-F1 as the evaluation metrics.
+To demonstrate the effectiveness of ART, we choose baselines as comparisons, including (Naive Bayes, SGD, Dense, BiLSTM) \cite{DBLP:conf/emnlp/QazvinianRRM11}, FastText\cite{DBLP:conf/eacl/GraveMJB17}, TextCNN\cite{DBLP:conf/emnlp/Kim14}, VRoC \cite{DBLP:conf/www/ChengNB20}, and some combinations of them. All the chosen baselines are contained in Table.\ref{tab:results_RE}. We use accuracy and macro-F1 as the evaluation metrics.
 
 \begin{table}[htbp]
 	\caption{PHEME}
@@ -17,15 +17,15 @@ To demonstrate the effectiveness of ART, we choose baselines as comparisons, inc
 			\hline
 			\textbf{Events} & \textbf{Threads} & \textbf{Tweets} & \textbf{Threads of Rumors}\\
 			\hline
-			Charlie Hebdo &2079&38268&458\\
+			Charlie Hebdo (C) &2079&38268&458\\
 			\hline
-			Sydney siege  &1221&23996&522\\
+			Sydney siege (S) &1221&23996&522\\
 			\hline
-			Ferguson &1143&24175&284\\
+			Ferguson (F) &1143&24175&284\\
 			\hline
-			Ottawa Shooting &890&12284&470\\
+			Ottawa Shooting (O) &890&12284&470\\
 			\hline		
-			Germanwings-crash&469&4489&238\\
+			Germanwings-crash (G) &469&4489&238\\
 			\hline
 			\textbf{Total} & 5802 & 103212 & 1972 \\
 			\hline	
@@ -58,8 +58,7 @@ To demonstrate the effectiveness of ART, we choose baselines as comparisons, inc
 \subsection{Experimental Results}
 The results on RumorEval are shown in Table.~{\ref{tab:RumorEval}}. The second column records the F1-Scores on each event, and "F, O, S, C, G" are the first chars of the corresponding event name. The results suggest that ART achieves the best performance on both average accuracy and average F1-Score. TextCNN gets the best performance among these basic models. It is because the bag-of-words idea in TextCNN is suitable for the short text and various filters with different length effectively capture the features of key grams. Naive Bayes gets the worst performance. We think the reason is that the parameters in Naive Bayes are limited, which is not enough for this corpus. SGD+TextCNN achieves the best performance among the pairwise-added models. 
 
-The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that ART model gets the second-best performance on average accuracy and average Micro-F1 score, which is a little lower than the combination of FastText, Dense, and TextCNN. We think it is because the scale of PHEME is larger than that of the RumorEval, and the SGD is not suitable for large-scaled dataset. Consequently, the worse performance of SGD affects the performance of ART. Also, the performance of basic models on PHEME proofs our explanation. The SGD gets the worst performance among all basic models. For F1-Score on every event, ART gets the best performance on two events, which ties the performance of the combination of FastText, Dense, and TextCNN. To sum up, ART gets satisfactory performance on all datasets, which proved
-the effectiveness.
+The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that ART model gets the second-best performance on average accuracy and average macro-F1 score, which is a little lower than the combination of FastText, Dense, and TextCNN. We think it is because the scale of PHEME is larger than that of the RumorEval, and the SGD is not suitable for large-scaled dataset. Consequently, the worse performance of SGD affects the performance of ART. Also, the performance of basic models on PHEME proofs our explanation. The SGD gets the worst performance among all basic models. For F1-Score on every event, ART gets the best performance on two events, which ties the performance of the combination of FastText, Dense, and TextCNN. To sum up, ART gets satisfactory performance on all datasets, which demonstrates the effectiveness.
 
 \begin{table}[htbp]
 	\caption{Results on RumorEval}
@@ -68,7 +67,7 @@ the effectiveness.
 	\resizebox{1\linewidth}{!}{
 		\begin{tabular}{|c|c|c|c|}
 			\hline
-			\multirow{2}{*}{\textbf{Methods}}  & \textbf{F1-Score on each event} & \multirow{2}{*}{\textbf{Average Accuracy}} & \multirow{2}{*}{\textbf{Average Micro-F1}}\\
+			\multirow{2}{*}{\textbf{Methods}}  & \textbf{F1-Score on each event} & \multirow{2}{*}{\textbf{Average Accuracy}} & \multirow{2}{*}{\textbf{Average Macro-F1}}\\
 			& \textbf{F/ O/ S/ C/ G} &  & \\
 			\hline
 			NB  & 0.937/0.924/0.907/0.929/0.617 & 0.910 & 0.863\\
@@ -122,7 +121,7 @@ the effectiveness.
 	\resizebox{1\linewidth}{!}{
 		\begin{tabular}{|c|c|c|c|}
 			\hline
-			\multirow{2}{*}{\textbf{Methods}}  & \textbf{F1-Score on each event} & \multirow{2}{*}{\textbf{Average Accuracy}} & \multirow{2}{*}{\textbf{Average Micro-F1}}\\
+			\multirow{2}{*}{\textbf{Methods}}  & \textbf{F1-Score on each event} & \multirow{2}{*}{\textbf{Average Accuracy}} & \multirow{2}{*}{\textbf{Average Macro-F1}}\\
 			& \textbf{F/ O/ S/ C/ G} &  & \\
 			\hline
 			NB  & 0.976/0.926/0.888/0.900/0.735
@@ -169,7 +168,7 @@ the effectiveness.
 \end{table}
 
 \subsection{Different Embedding Strategies}
-As introduced in Section~\ref{sec:process_embedding}, there are three embedding strategies. To find the most proper embedding strategy, we conduct experiments on three representative basic models including Dense, BiLSTM, and TextCNN. The experimental results are shown in Table.~\ref{tab:embedding}. We find that the random embedding strategy significantly outperforms the others on both average accuracy and average micro-F1. Self-trained embedding strategy achieves the second-best performance with a little superiority than that of the Google News Word2Vector. Moreover, we also test the GloVe embedding and the results are worse than Google News Word2Vector. The existing work usually adopts the pre-trained embedding strategy. However, we find that the most proper embedding strategies are random embedding. Therefore we choose random embedding in the ART.
+As introduced in Section~\ref{sec:process_embedding}, there are three embedding strategies. To find the most proper embedding strategy, we conduct experiments on three representative basic models including Dense, BiLSTM, and TextCNN. The experimental results are shown in Table.~\ref{tab:embedding}. We find that the random embedding strategy significantly outperforms the others on both average accuracy and average macro-F1. Self-trained embedding strategy achieves the second-best performance with a little superiority than that of the Google News Word2Vector. Moreover, we also test the GloVe embedding and the results are worse than Google News Word2Vector. The existing work usually adopts the pre-trained embedding strategy. However, we find that the most proper embedding strategies are random embedding. Therefore we choose random embedding in the ART.
 
 \begin{table}[htbp]
 	\caption{Results of Different Embedding Strategies}
@@ -178,7 +177,7 @@ As introduced in Section~\ref{sec:process_embedding}, there are three embedding 
 	\resizebox{0.9\linewidth}{!}{
 		\begin{tabular}{|c|c|c|c|}
 			\hline
-			\multirow{2}{*}{Events}  & \textbf{F1-Score on each event} & \multirow{2}{*}{\textbf{Average Accuracy}} & \multirow{2}{*}{\textbf{Average Micro-F1}}\\
+			\multirow{2}{*}{Events}  & \textbf{F1-Score on each event} & \multirow{2}{*}{\textbf{Average Accuracy}} & \multirow{2}{*}{\textbf{Average Macro-F1}}\\
 			& \textbf{F/ O/ S/ C/ G} &  & \\
 			\hline
 			\multicolumn{4}{|c|}{\textbf{Google News Word2Vector}} \\
@@ -242,7 +241,7 @@ As introduced in Section~\ref{sec:process_embedding}, there are three embedding 
 		\includegraphics[width=0.4\linewidth]{fig/legend_acc_macroF}
 	}
 	\setcounter{subfigure}{1}
-	\subfigure[Affects of Parameters on F1-Scores and Accruancy]{
+	\subfigure[Affects of Parameters on Macro F1-Scores and Accruancy]{
 		\label{fig:parameter_art}
 		\begin{minipage}[b]{0.35\linewidth}
 			\includegraphics[width=1\linewidth]{fig/embedding_dim}
