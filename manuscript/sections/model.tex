@@ -47,6 +47,15 @@ With all components in RL-BRT trained, we aggregate them and give the final pred
 
 As all components are trained, results are aggregated by a bagging algorithm. The bagging details of RL-BRT is shown in Algorithm~\ref{algorithm:RL-BRT}. We denote the predicted result of a component as $r$ and the predicted result of RL-BRT as $R$. The inputs of Algorithm~\ref{algorithm:RL-BRT} are a sample $x$ and its predicted results of all components, which is denoted as $K_y = \left\{y_F', y_T', y_B', y_N', y_S' \right\}$. Each element in $K_y$ is an m-dimensional vector. Then, $x$ and $K_y$ is sent to WTPN and the output is a set of weights denoted as $W_y$ (Line 2). Each element $y_i'$ in $K_y$ is assigned with a weight in $W_y$. Next, we sum the predicted results in $K_y$ with weights (Line 4). Finally, the category with the greatest possibility is the predicted result of RL-BRT (Line 6). 
 
+\begin{figure}[tbp]
+	\hspace{0ex}
+	\vspace{0ex}
+	\centering
+	\includegraphics[width = \textwidth]{fig/WTPN}
+	\caption{Structure of WTPN}
+	\label{fig:WTPN}
+\end{figure}
+
 \subsection{Weight-Tuning Policy Network}
 We propose WTPN to generate a suitable weight for each sample. WTPN is based on a reinforcement learning structure with a triple-tuple $<S, A, R>$, where $S = \{ s \}$ is a set of states. $A = \{ a \}$ is a set of actions. $R(s, a)$ is the reward function.
 \begin{itemize}
@@ -70,13 +79,4 @@ J_b(\mu_\theta) &= \mathbb{E} [R(s_1, a_1, ..., s_{|X_b|},a_{|X_b|}) ],
 \end{align}
 where $\lambda$ is learning rate. $J_b(\mu_\theta)$ is the expected return.
 
-The goal of WTPN is to approximate a policy function $\mu_\theta :S \to A$ that maximizes the accumulated reward. And the network structure of WTPN is shown in Fig.~\ref{fig:WTPN}. The structure of WTPN is inspired by \cite{DBLP:conf/aaai/KimJSR16}. The inputs of WTPN are $x$ and $K_y$ and the output is $W_y$. $x$ is sent to an FC (full-connect) layer and concatenated with $K_y$. Next, we adopt multiple filters on the concatenated vector. The sizes of multiple filters are different, including $[1*m]$,  $[2*m]$, $[3*m]$, $[4*m]$, and $[5*m]$. The convolutional padding strategy is the same. By convolution and max-pooling, WTPN concatenates the captured features. Finally, with 2 FC layers, WTPN outputs $W_y$. 
-
-\begin{figure}[htbp]
-	\hspace{0ex}
-	\vspace{0ex}
-	\centering
-	\includegraphics[width = \textwidth]{fig/WTPN}
-	\caption{Structure of WTPN}
-	\label{fig:WTPN}
-\end{figure}
+The goal of WTPN is to approximate a policy function $\mu_\theta :S \to A$ that maximizes the accumulated reward.  Inspired by \cite{DBLP:conf/aaai/KimJSR16}, we propose a CNN based WTPN structure. As shown in Fig.~\ref{fig:WTPN}, the inputs of WTPN are $x$ and $K_y$ and the output is $W_y$. $x$ is sent to an FC (full-connect) layer and concatenated with $K_y$. We adopt multiple filters on the concatenated vector. The sizes of multiple filters are different, including $[1*m]$,  $[2*m]$, $[3*m]$, $[4*m]$, and $[5*m]$. The convolutional padding strategy is the same. By convolution and max-pooling, WTPN concatenates the captured features. Finally, with 2 FC layers, WTPN outputs $W_y$. 
