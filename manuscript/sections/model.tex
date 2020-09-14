@@ -70,7 +70,7 @@ For a batch of samples $X_b$, the accumulated reward is defined as:
 \begin{equation}
 R(s_1, a_1, ..., s_{|X_b|},a_{|X_b|}) = \frac{1}{|X_b|}\sum_{t = 1}^{t = |X_b|} r_t,
 \end{equation}
-where $ \frac{1}{|X_b|}$ is a normalization item. $R(s,a) = r$ is denoted as follows: If the final predicted result of $s$ is right, $r = 1$; If the final predicted result of $s$ is wrong, $r = 0$.
+where $ \frac{1}{|X_b|}$ is a normalization item. For a sample, $R(s,a) = r$ is the negative softmax cross-entropy loss between the predicted result (Line 6 in Algorithm \ref{algorithm:RL-BRT}) and ground-truth label.
 For each batch, the parameter $\theta$ of policy function is updated by the following equation: 
 
 \begin{align}
