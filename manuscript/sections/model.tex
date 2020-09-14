@@ -59,18 +59,18 @@ We propose WTPN to generate a suitable weight for each sample. WTPN is based on 
 
 For a batch of samples $X_b$, the accumulated reward is defined as:
 \begin{equation}
-R(s_1, a_1, ..., s_{|X_b|},a_{|X_b|}) = \frac{1}{|X_b|}\sum_{t = 0}^{t = |X_b|} r_t,
+R(s_1, a_1, ..., s_{|X_b|},a_{|X_b|}) = \frac{1}{|X_b|}\sum_{t = 1}^{t = |X_b|} r_t,
 \end{equation}
-where $ \frac{1}{|X_b|}$ is a normalization item.
+where $ \frac{1}{|X_b|}$ is a normalization item. $R(s,a) = r$ is denoted as follows: If the final predicted result of $s$ is right, $r = 1$; If the final predicted result of $s$ is wrong, $r = 0$.
 For each batch, the parameter $\theta$ of policy function is updated by the following equation: 
 
 \begin{align}
-\theta \leftarrow &= \theta + \lambda \nabla_\theta J_b(\mu_\theta),\\
+\theta &\leftarrow \theta + \lambda \nabla_\theta J_b(\mu_\theta),\\
 J_b(\mu_\theta) &= \mathbb{E} [R(s_1, a_1, ..., s_{|X_b|},a_{|X_b|}) ],
 \end{align}
 where $\lambda$ is learning rate. $J_b(\mu_\theta)$ is the expected return.
 
-The goal of WTPN is to approximate a policy function $\mu_\theta :S \to A$ that maximizes the accumulated reward. And the network structure of WTPN is shown in Fig.~\ref{fig:WTPN}. The structure of WTPN is inspired by \cite{DBLP:conf/aaai/KimJSR16}. The inputs of WTPN are $x$ and $K_y$ and the output is $W_y$. $x$ is sent to an FC (full-connect) layer and concatenated with $K_y$. Next, we adopt multiple filters on the concatenated vector. The sizes of multiple filters are different, including 50 $1*m$,  50 $2*m$, 50 $3*m$, 50 $4*m$, and 50 $5*m$. The convolutional padding strategy is the same. By convolution and max-pooling, WTPN concatenates the captured features. Finally, with 2 FC layers, WTPN outputs $W_y$. 
+The goal of WTPN is to approximate a policy function $\mu_\theta :S \to A$ that maximizes the accumulated reward. And the network structure of WTPN is shown in Fig.~\ref{fig:WTPN}. The structure of WTPN is inspired by \cite{DBLP:conf/aaai/KimJSR16}. The inputs of WTPN are $x$ and $K_y$ and the output is $W_y$. $x$ is sent to an FC (full-connect) layer and concatenated with $K_y$. Next, we adopt multiple filters on the concatenated vector. The sizes of multiple filters are different, including $[1*m]$,  $[2*m]$, $[3*m]$, $[4*m]$, and $[5*m]$. The convolutional padding strategy is the same. By convolution and max-pooling, WTPN concatenates the captured features. Finally, with 2 FC layers, WTPN outputs $W_y$. 
 
 \begin{figure}[htbp]
 	\hspace{0ex}
