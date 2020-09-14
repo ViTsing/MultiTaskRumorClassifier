@@ -6,7 +6,7 @@ In this section, we proceed to introduce the experimental settings and results. 
 \label{sec:dataset}
 The datasets of our experiment are  PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and RumorEval \cite{DBLP:conf/semeval/EnayetE17}. These two datasets are widely used in the rumor detection research area. The details of PHEME are shown in Table.\ref{tab:pheme} and the details of RumorEval are shown in Table.\ref{tab:RumorEval}. The original PHEME contains 9 events and 4 of them are sparse, so we usually use PHEME-5 (following the existing works \cite{DBLP:conf/www/ChengNB20}). The PHEME-5 is formed by the top-5 scaled events, which contains 5802 threads and 1972 in them are rumors. 
 
-To demonstrate the effectiveness of ART, we choose baselines as comparisons, including (Naive Bayes, SGD, Dense, BiLSTM) \cite{DBLP:conf/emnlp/QazvinianRRM11}, FastText\cite{DBLP:conf/eacl/GraveMJB17}, TextCNN\cite{DBLP:conf/emnlp/Kim14}, VRoC \cite{DBLP:conf/www/ChengNB20}, and some combinations of them. All the chosen baselines are contained in Table.\ref{tab:results_RE}. We use accuracy and macro-F1 as the evaluation metrics.
+To demonstrate the effectiveness of RL-BRT, we choose baselines as comparisons, including (Naive Bayes, SGD, Dense, BiLSTM) \cite{DBLP:conf/emnlp/QazvinianRRM11}, FastText\cite{DBLP:conf/eacl/GraveMJB17}, TextCNN\cite{DBLP:conf/emnlp/Kim14}, VRoC \cite{DBLP:conf/www/ChengNB20}, and some combinations of them. All the chosen baselines are contained in Table.\ref{tab:results_RE}. We use accuracy and macro-F1 as the evaluation metrics.
 
 \begin{table}[htbp]
 	\caption{PHEME}
@@ -56,9 +56,9 @@ To demonstrate the effectiveness of ART, we choose baselines as comparisons, inc
 
 
 \subsection{Experimental Results}
-The results on RumorEval are shown in Table.~{\ref{tab:RumorEval}}. The second column records the F1-Scores on each event, and "F, O, S, C, G" are the first chars of the corresponding event name. The results suggest that ART achieves the best performance on both average accuracy and average F1-Score. TextCNN gets the best performance among these basic models. It is because the bag-of-words idea in TextCNN is suitable for the short text and various filters with different length effectively capture the features of key grams. Naive Bayes gets the worst performance. We think the reason is that the parameters in Naive Bayes are limited, which is not enough for this corpus. SGD+TextCNN achieves the best performance among the pairwise-added models. 
+The results on RumorEval are shown in Table.~{\ref{tab:RumorEval}}. The second column records the F1-Scores on each event, and "F, O, S, C, G" are the first chars of the corresponding event name. The results suggest that RL-BRT achieves the best performance on both average accuracy and average F1-Score. TextCNN achieves the best performance among these basic models. It is because the bag-of-words idea in TextCNN is suitable for the short text and various filters with different length effectively capture the features of key grams. Naive Bayes achieves the worst performance. We think the reason is that the parameters in Naive Bayes are limited, which is not enough for this corpus. SGD+TextCNN achieves the best performance among the pairwise-added models. 
 
-The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that ART model gets the second-best performance on average accuracy and average macro-F1 score, which is a little lower than the combination of FastText, Dense, and TextCNN. We think it is because the scale of PHEME is larger than that of the RumorEval, and the SGD is not suitable for large-scaled dataset. Consequently, the worse performance of SGD affects the performance of ART. Also, the performance of basic models on PHEME proofs our explanation. The SGD gets the worst performance among all basic models. For F1-Score on every event, ART gets the best performance on two events, which ties the performance of the combination of FastText, Dense, and TextCNN. To sum up, ART gets satisfactory performance on all datasets, which demonstrates the effectiveness.
+The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that RL-BRT model achieves the second-best performance on average accuracy and average macro-F1 score, which is a little lower than the combination of FastText, Dense, and TextCNN. We think it is because the scale of PHEME is larger than that of the RumorEval, and the SGD is not suitable for large-scale datasets. Consequently, the worse performance of SGD affects the performance of RL-BRT. Also, the performance of basic models on PHEME proofs our explanation. The SGD achieves the worst performance among all basic models. For F1-Score on every event, RL-BRT achieves the best performance on two events, which ties the performance of the combination of FastText, Dense, and TextCNN. To sum up, RL-BRT achieves satisfactory performance on all datasets, which demonstrates the effectiveness.
 
 \begin{table}[htbp]
 	\caption{Results on RumorEval}
@@ -107,8 +107,11 @@ The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that
 			VRoC  &0.640/0.703/0.611/0.685/0.520
 			& 0.644 & 0.632 \\
 			\hline
-			ART  & 0.979/0.961/\textbf{0.952}/\textbf{0.943}/0.937
+			BRT without RL  & 0.979/0.961/\textbf{0.952}/\textbf{0.943}/0.937
 			& \textbf{0.956} & \textbf{0.955} \\
+			\hline
+			RL-BRT (adjusting)  & 0.979/0.961/\textbf{0.952}/\textbf{0.943}/0.937
+			& \textbf{/} & \textbf{/} \\
 			\hline					
 		\end{tabular}
 	}	
@@ -160,15 +163,18 @@ The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that
 			FastText+ SGD + TextCNN  & 0.982/0.932/0.922/0.912/0.926
 			& 0.934 & 0.935 \\
 			\hline
-			ART  &\textbf{0.988}/\textbf{0.937}/0.921/0.915/0.917
+			BRT without RL  &\textbf{0.988}/\textbf{0.937}/0.921/0.915/0.917
 			& 0.936 & 0.935 \\
-			\hline					
+			\hline
+			RL-BRT (adjusting) &\textbf{0.988}/\textbf{0.937}/0.921/0.915/0.917
+			& / & / \\
+			\hline							
 		\end{tabular}
 	}	
 \end{table}
 
 \subsection{Different Embedding Strategies}
-As introduced in Section~\ref{sec:process_embedding}, there are three embedding strategies. To find the most proper embedding strategy, we conduct experiments on three representative basic models including Dense, BiLSTM, and TextCNN. The experimental results are shown in Table.~\ref{tab:embedding}. We find that the random embedding strategy significantly outperforms the others on both average accuracy and average macro-F1. Self-trained embedding strategy achieves the second-best performance with a little superiority than that of the Google News Word2Vector. Moreover, we also test the GloVe embedding and the results are worse than Google News Word2Vector. The existing work usually adopts the pre-trained embedding strategy. However, we find that the most proper embedding strategies are random embedding. Therefore we choose random embedding in the ART.
+As introduced in Section~\ref{sec:process_embedding}, there are three embedding strategies. To find the most proper embedding strategy, we conduct experiments on three representative basic models including Dense, BiLSTM, and TextCNN. The experimental results are shown in Table.~\ref{tab:embedding}. We find that the random embedding strategy significantly outperforms the others on both average accuracy and average macro-F1. Self-trained embedding strategy achieves the second-best performance with a little superiority than that of the Google News Word2Vector. Moreover, we also test the GloVe embedding and the results are worse than Google News Word2Vector. The existing work usually adopts the pre-trained embedding strategy. However, we find that the most proper embedding strategies are random embedding. Therefore we choose random embedding in RL-BRT.
 
 \begin{table}[htbp]
 	\caption{Results of Different Embedding Strategies}
@@ -258,10 +264,10 @@ As introduced in Section~\ref{sec:process_embedding}, there are three embedding 
 \end{figure}
 
 \subsection{Details of Settings and Parameters}
-In this part, we proceed to introduce the detailed settings of the experiments. The chosen optimizer in the deep learning based model is Adam. The loss function is cross-entropy. We split the whole dataset into a proportion of 6:2:2. For a deep learning based model, we  run it more than 50 epochs until convergence. The voting strategy is not suitable for pair-wise adding baselines (Such as FastText + Dense), and therefore we aggregate them by adding the output vectors after softmax. Also, as shown in Fig.~\ref{fig:parameter}, we conduct various experiments to find the best parameters.
+In this part, we proceed to introduce the detailed settings of the experiments. The chosen optimizer in the deep learning based model is Adam. The loss function is cross-entropy. We split the whole dataset into a proportion of 6:2:2. For a deep learning based model, we run it more than 50 epochs until convergence. The voting strategy is not suitable for pair-wise adding baselines (Such as FastText + Dense), and therefore we aggregate them by adding the output vectors after softmax. Also, as shown in Fig.~\ref{fig:parameter}, we conduct various experiments to find the best parameters.
 
-For simplicity, we only show the parameter adjustment on RumorEval as an example. We choose the embedding dimension, batch size, and hidden units as the representative parameters. During each running, we vary one parameter and fix the other parameters to record the variation trend of ART. The Fig.~\ref{fig:parameter_events} shows the results during parameter adjustment on each event. The Fig.~\ref{fig:parameter_art} records the performance of ART during parameter adjustment. It suggests that when the embedding dim is 32, batch size is 64, and hidden units is 100, the ART gets the best performance on RumorEval dataset. The smaller parameter value corresponds to the small scale of RumorEval.
+For simplicity, we only show the parameter adjustment on RumorEval as an example. We choose the embedding dimension, batch size, and hidden units as the representative parameters. During each running, we vary one parameter and fix the other parameters to record the variation trend of RL-BRT. The Fig.~\ref{fig:parameter_events} shows the results during parameter adjustment on each event. The Fig.~\ref{fig:parameter_art} records the performance of RL-BRT during parameter adjustment. It suggests that when the embedding dim is 32, batch size is 64, and hidden units are 100, RL-BRT achieves the best performance on RumorEval dataset. The smaller parameter value corresponds to the small scale of RumorEval.
 
 \subsection{Discussion}
-The experiments on baseline methods demonstrate the effectiveness of ART. ART outperforms the other models in most rumor events, showing robustness and superiority. The outstanding performance of the random embedding suggests that the pre-trained and the self-trained embeddings are not suitable in small-scaled dataset with causal spelling. Since some causal words is missing in pre-trained embeddings. Besides, the tweets is too short to train a satisfied self-trained embedding. The adjustment of the embedding dim shows that embeddings with small length is more suitable for rumor tracking. Because the long length embedding is spare, which brings additional computation. The comparison between basic model, pairwise-added models, and ART further demonstrates the effectiveness of ART. 
+The experiments on baseline methods demonstrate the effectiveness of RL-BRT. RL-BRT outperforms the other models in most rumor events, showing robustness and superiority. The outstanding performance of the random embedding suggests that the pre-trained and the self-trained embeddings are not suitable in small-scaled dataset with causal spelling. Since some causal words are missing in pre-trained embeddings. Besides, the tweets are too short to train a satisfied self-trained embedding. The adjustment of the embedding dim shows that embeddings with small length is more suitable for rumor tracking. Because the long length embedding is spare, which brings additional computation. The comparison between the basic model, pairwise-added models, and RL-BRT further demonstrates the effectiveness of RL-BRT. 
 
