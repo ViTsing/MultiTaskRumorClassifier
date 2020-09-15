@@ -77,7 +77,7 @@ The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that
 			FastText & 0.973/0.944/0.927/0.905/0.954
 			& 0.938 & 0.940 \\
 			\hline	
-			Dense  & 0.964/0.951/0.939/0.937/0.919
+			Dense  & 0.964/0.951/0.939/\textbf{0.937}/0.919
 			&0.946 &0.942 \\
 			\hline
 			BiLSTM  & 0.972/0.909/0.910/0.895/0.901
@@ -98,7 +98,7 @@ The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that
 			Dense + TextCNN  & 0.964/0.954/0.945/0.926/0.88
 			& 0.942 & 0.934 \\
 			\hline
-			FastText+ Dense + TextCNN  & 0.979/0.947/0.932/0.907/\textbf{0.964}
+			FastText+ Dense + TextCNN  & 0.979/0.947/0.932/0.907/0.964
 			& 0.942 & 0.946 \\
 			\hline
 			FastText+ SGD + TextCNN  & 0.977/0.955/0.941/0.925/0.937
@@ -107,11 +107,11 @@ The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that
 			VRoC  &0.640/0.703/0.611/0.685/0.520
 			& 0.644 & 0.632 \\
 			\hline
-			BRT without RL  & 0.979/0.961/\textbf{0.952}/\textbf{0.943}/0.937
-			& \textbf{0.956} & \textbf{0.955} \\
+			BRT without RL  & 0.979/0.951/0.943/0.926/0.944
+			& 0.949 & 0.949 \\
 			\hline
-			RL-BRT (adjusting)  & 0.979/0.961/\textbf{0.952}/\textbf{0.943}/0.937
-			& \textbf{/} & \textbf{/} \\
+			RL-BRT  & 0.982/0.954/\textbf{0.945}/0.923/\textbf{0.964}
+			& \textbf{0.951} & \textbf{0.954} \\
 			\hline					
 		\end{tabular}
 	}	
