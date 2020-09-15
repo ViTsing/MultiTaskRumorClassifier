@@ -108,7 +108,7 @@ y_T' &= flatten(concat(m_3, m_4, m_5)),
 where the $Embedding(\cdot)$ is the embedding layer, and $m_i (i = 3,4,5)$ is the output of different convolutional filter. By concatenating and flattening, TextCNN generates the output that is denoted as $y_T'$.
 
 \subsection{Deterministic Policy Gradient Algorithm}
-Deterministic Policy Gradient Algorithm (DPG) \cite{DBLP:conf/icml/SilverLHDWR14} is a policy-based deep reinforcement learning algorithm. DPG assumes the action space is continuous and generates actions efficiently with deterministic policy. Therefore, DPG is suitable for weight tuning. As a reinforcement learning based model, DPG includes: \textbf{Action} $A$, \textbf{State} $S$, and \textbf{Reward} $R(S,A)$. The policy gradient of DPG is as follows:
+Deterministic Policy Gradient Algorithm (DPG) \cite{DBLP:conf/icml/SilverLHDWR14} is a policy-based reinforcement learning algorithm. DPG assumes the action space is continuous and generates actions efficiently with deterministic policy. Therefore, DPG is suitable for weight tuning. As a reinforcement learning based model, DPG includes: \textbf{Action} $A$, \textbf{State} $S$, and \textbf{Reward} $R(S,A)$. The policy gradient of DPG is as follows:
 \begin{equation}
 \nabla_\theta J(\mu_\theta) =  \mathbb{E}_{s \sim \rho^\mu} \left[\nabla_\theta \mu_\theta (s)\nabla_a Q^\mu (s, a) |_{a = \mu_\theta(s)}  \right],
 \end{equation}
