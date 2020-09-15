@@ -20,41 +20,35 @@ We use two benchmark datasets PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and Rum
 	\caption{Notation Summarization}
 	\centering
 	\label{tab:notations}
-	\resizebox{0.55\linewidth}{!}{
-		\begin{tabular}{|c|l|}
+	\resizebox{\linewidth}{!}{
+		\begin{tabular}{c|l|c|l}
 			\hline
-			\textbf{Notation} & \textbf{Definition}\\
 			\hline
-			$T$ & the set of tweets \\
+			\textbf{Notation} & \textbf{Definition} & \textbf{Notation} & \textbf{Definition}\\
 			\hline
-			$y_F'$ & output of FastText \\
+			$T$ & the set of tweets &$t_n$ & a tweet\\
 			\hline
-			$t_n$ & a tweet\\
+			$C$ & the set of rumor events &$c_m$ & a rumor event\\
+			\hline
+			$y_F'$ & the output of FastText& $y_T'$ & the output of TextCNN\\
 			\hline		
-			$y_T'$ & output of TextCNN\\
+			$y_B'$ & the output of BiLSTM &$y_N'$ & the output of Naive Bayes\\
 			\hline
-			$C$ & the set of rumor events\\
+			 $y_S'$ & the output of SGD & $X_b$ & a batch of samples\\
 			\hline
-			$y_B'$ & output of BiLSTM\\
+			$R$ & the predicted result of RL-BRT &$y'$& the output of RL-BRT\\
 			\hline
-			$c_m$ & a rumor event \\
+			$x \in R^{l*d}$ & a processed sample &$y \in R^m$ & a training label\\
 			\hline
-			$y_N'$ & output of Naive Bayes\\
+			$K_y$ & the set of all components outputs &$W_y$ & the weights of components in $K_y$\\
 			\hline
-			$r$ & predicted result of a component\\
+			A& a set of actions & S& a set of states\\
 			\hline
-			$y_S'$ & output of SGD\\
+			(s, a)& a state-action tuple & $r$ = R(s, a)& a reward function on (s, a)\\
 			\hline
-			$R$ & predicted result of RL-BRT\\
+			$\mu(\theta)$& a deterministic policy of reinforcement learning & $J(\mu_{\theta})$ & the performance objective on $\mu(\theta)$\\	
 			\hline
-			$y'$& output of RL-BRT\\
-			\hline
-			$x \in R^{l*d}$ & a processed sample\\
-			\hline
-			$y \in R^m$ & a training label\\
-			\hline
-			$K_y$ & set of all components outputs\\		
-			\hline						
+			\hline				
 		\end{tabular}
 	}
 \end{table}
