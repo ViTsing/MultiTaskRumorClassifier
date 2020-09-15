@@ -84,7 +84,7 @@ The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that
 			&0.920 &0.917 \\
 			\hline
 			TextCNN  & \textbf{0.991}/\textbf{0.964}/0.939/0.934/0.900
-			& 0.953 & 0.946 \\
+			& \textbf{0.953} & 0.946 \\
 			\hline
 			FastText + Dense  &0.979/0.951/0.936/0.918/0.964
 			& 0.947 & 0.950 \\
@@ -93,7 +93,7 @@ The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that
 			& 0.935 & 0.938 \\
 			\hline
 			SGD + TextCNN  & 0.979/0.964/0.942/0.935/0.927
-			& 0.953 & 0.950 \\
+			& \textbf{0.953} & 0.950 \\
 			\hline
 			Dense + TextCNN  & 0.964/0.954/0.945/0.926/0.88
 			& 0.942 & 0.934 \\
@@ -111,7 +111,7 @@ The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that
 			& 0.949 & 0.949 \\
 			\hline
 			RL-BRT  & 0.982/0.954/\textbf{0.945}/0.923/\textbf{0.964}
-			& \textbf{0.951} & \textbf{0.954} \\
+			& 0.951 & \textbf{0.954} \\
 			\hline					
 		\end{tabular}
 	}	
@@ -174,7 +174,7 @@ The results on PHEME are shown in Table.~\ref{tab:results_PHE}. It suggests that
 \end{table}
 
 \subsection{Different Embedding Strategies}
-As introduced in Section~\ref{sec:process_embedding}, there are three embedding strategies. To find the most proper embedding strategy, we conduct experiments on three representative basic models including Dense, BiLSTM, and TextCNN. The experimental results are shown in Table.~\ref{tab:embedding}. We find that the random embedding strategy significantly outperforms the others on both average accuracy and average macro-F1. Self-trained embedding strategy achieves the second-best performance with a little superiority than that of the Google News Word2Vector. Moreover, we also test the GloVe embedding and the results are worse than Google News Word2Vector. The existing work usually adopts the pre-trained embedding strategy. However, we find that the most proper embedding strategy is random embedding. Therefore we choose random embedding in RL-BRT.
+As introduced in Section~\ref{sec:process_embedding}, there are three embedding strategies. To find the most proper embedding strategy, we conduct experiments on three representative basic models including Dense, BiLSTM, and TextCNN. The experimental results are shown in Table.~\ref{tab:embedding}. We find that the random embedding strategy significantly outperforms the others on both average accuracy and average macro-F1. Self-trained embedding strategy achieves the second-best performance with a little superiority over the Google News Word2Vector. Moreover, we also test the GloVe embedding and the results are worse than Google News Word2Vector. The existing work usually adopts the pre-trained embedding strategy. However, we find that the most proper embedding strategy is random embedding. Therefore we choose random embedding in RL-BRT.
 
 \begin{table}[htbp]
 	\caption{Results of Different Embedding Strategies}
@@ -266,7 +266,7 @@ As introduced in Section~\ref{sec:process_embedding}, there are three embedding 
 \subsection{Details of Settings and Parameters}
 In this part, we proceed to introduce the detailed settings of the experiments. The chosen optimizer in the deep learning based model is Adam and the loss function is cross-entropy. We split the whole dataset into a proportion of 6:2:2. For a deep learning based model, we run it more than 50 epochs until convergence. Besides, as shown in Fig.~\ref{fig:parameter}, we conduct various experiments to find the best parameters.
 
-For simplicity, we only show the parameter adjustment on RumorEval as an example. We choose the embedding dimension, batch size, and hidden units as the representative parameters. During each running, we vary one parameter and fix the other parameters to record the variation trend of RL-BRT. The Fig.~\ref{fig:parameter_events} shows the results of parameter adjustment on each event. The Fig.~\ref{fig:parameter_art} records the performance of RL-BRT during parameter adjustment. It suggests that when the embedding dim is 32, batch size is 64, and hidden units are 100, RL-BRT achieves the best performance on RumorEval dataset. The smaller parameter value corresponds to the small scale of RumorEval.
+For simplicity, we only show the parameter adjustment on RumorEval as an example. We choose the embedding dimension, batch size, and hidden units as the representative parameters. During each running, we vary one parameter and fix the other parameters to record the variation trend of RL-BRT. The Fig.~\ref{fig:parameter_events} shows the results of parameter adjustment on each event. The Fig.~\ref{fig:parameter_art} records the performance of RL-BRT during parameter adjustment. It suggests that when the embedding dim is 32, batch size is 64, and size of hidden units is 100, RL-BRT achieves the best performance on RumorEval dataset. The smaller parameter value corresponds to the small scale of RumorEval.
 
 \subsection{Discussion}
 The experiments on baseline methods demonstrate the effectiveness of RL-BRT. RL-BRT outperforms the other models in most rumor events, showing robustness and superiority. The outstanding performance of the random embedding suggests that the pre-trained and the self-trained embeddings are not suitable in small-scaled dataset with causal spelling. Since some causal words are missing in pre-trained embeddings. Besides, the tweets are too short to train a satisfied self-trained embedding. The adjustment of the embedding dim shows that embeddings with small length is more suitable for rumor tracking. Because the long length embedding is spare, which brings additional computation. The comparison between the basic model, pairwise-added models, and RL-BRT further demonstrates the effectiveness of RL-BRT. 
