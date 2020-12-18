@@ -36,7 +36,7 @@ We use two benchmark datasets PHEME \cite{DBLP:conf/coling/KochkinaLZ18} and Rum
 			\hline
 			 $y_S'$ & the output of SVM-SGD & $X_b$ & a batch of samples\\
 			\hline
-			$R$ & the predicted result of \textcolor{blue}{RL-ERT} &$y'$& the output of \textcolor{blue}{RL-ERT}\\
+			$R$ & the predicted result of RL-ERT &$y'$& the output of RL-ERT\\
 			\hline
 			$x \in R^{l*d}$ & a processed sample &$y \in N^m$ & a training label\\
 			\hline
@@ -104,7 +104,7 @@ y_B^{'} &= [o_{t,f}, o_{t,b}],
 \end{align}
 \textcolor{blue}{where $x_t$ is the input at time step $t$. LSTM consists of three gates: forget gate $f_t$, input gate $i_t$, and output gate $o_t$. Also, it has two memories: long-term memory $C_t$ and short-memory $h_t$. Finally, we use forward and backward input sequence to generate forward output $o_{t,f}$ and backward output $o_{t,f}$, respectively. The final output of BiLSTM is denoted as $y_B^{'}$, which is concatenated by $o_{t,f}$ and $o_{t,f}$. $[\cdot]$ is the concatenate operation. BiLSTM captures the long-term dependency of rumor tweets, which is possible to promote the performance of RL-ERT. Therefore, we choose BiLSTM as a component of RL-ERT.}
 
-\textbf{TextCNN} \cite{DBLP:conf/emnlp/Kim14} uses multiple convolutional filters with different sizes to capture N-gram features. Compared to RNN based models, TextCNN reaches convergence faster due to the parallel computation. The tweets are usually short texts (within 140 words) with sparse semantic. Consequently, CNN based models are more suitable than RNN based models for tweets classification because tweets are usually treated as a bag of words. We choose TextCNN as one of the components of \textcolor{blue}{RL-ERT}. The brief procedure of TextCNN is shown as follows,
+\textbf{TextCNN} \cite{DBLP:conf/emnlp/Kim14} uses multiple convolutional filters with different sizes to capture N-gram features. Compared to RNN based models, TextCNN reaches convergence faster due to the parallel computation. The tweets are usually short texts (within 140 words) with sparse semantic. Consequently, CNN based models are more suitable than RNN based models for tweets classification because tweets are usually treated as a bag of words. We choose TextCNN as one of the components of RL-ERT. The brief procedure of TextCNN is shown as follows,
 \begin{align}\label{eq:tcnn}
 V_x &= Embedding(x), \\
 m_3 &= maxpooling(ConV_3(V_x)),\\
