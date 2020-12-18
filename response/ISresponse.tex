@@ -21,20 +21,20 @@
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
 \lstset{frame=tb,
-  language=Python,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle={\small\ttfamily},
-  numbers=none,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breaklines=true,
-  breakatwhitespace=true,
-  tabsize=3
+	language=Python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
 }
 % define counters for reviewers and their points
 \newcounter{reviewer}
@@ -47,7 +47,7 @@
 
 % command declarations for reviewer points and our responses
 \newcommand{\reviewersection}{\stepcounter{reviewer} \bigskip \hrule
-                  \section*{Reviewer \thereviewer}}
+	\section*{Reviewer \thereviewer}}
 
 \newenvironment{point}
 {\refstepcounter{point} \bigskip \noindent {\textbf{Comment~\thepoint} } --\ }
@@ -56,221 +56,213 @@
 {\medskip \noindent\textbf{Response}:\  }
 
 \begin{document}
-
-\section*{Response to Reviewers' Comments}
-
-\textbf{Paper Title: Deep Reinforcement Learning based Ensemble Model for Rumor Tracking}
-
-\vspace{0.1cm}
-
-\noindent
-\textbf{Authors: Guohui Li, Ming Dong, Lingfeng Ming, Changyin Luo, Han Yu, Xiaofei Hu, Bolong Zheng}
-
-\vspace{0.2cm}
-\noindent
-We appreciate the anonymous reviewers for reading carefully through our manuscript and providing many insightful comments and suggestions. We rewrite the manuscript to make the presentation more clearly and highlight some changes \textcolor{blue}{\textbf{in blue}} according to the reviewers' comments. In the following, we separately address the concerns from all the reviewers point by point.
-
-% Let's start point-by-point with Reviewer 1
-\reviewersection
-
-
-\begin{point}\textit{
-	Experiments are not enough such as component analysis is absent.
-}\end{point}
-
-\begin{response}
-	Thanks for the suggestions. We have revised the manuscript as suggested.
-\end{response}
-
-\begin{point}\textit{
-	To distinguish, let m be in italics in the "m-way classification problem" in Section 2.2.
-}\end{point}
-
-\begin{response}
-	Thanks for the suggestions. We have revised the manuscript as suggested.
-\end{response}
-
-\begin{point}\textit{
-	The introduction of DPG and Weight-Tuning Policy Network is not clear enough.
-}\end{point}
-
-\begin{response}
-	Thanks for the suggestions. We have added more detailed descriptions of DPG and Weight-Tuning Policy Network.
-\end{response}
-
-\begin{point}\textit{
-	The aggregated models, called pairwise-add models are not enough, that is, the baseline that adds all the components of RL-BRT is absent.
-}\end{point}
-
-\begin{response}
-	Thanks for the suggestions. We have revised the manuscript as suggested. The baseline that adds all the components of RL-ERT is named ERT without RL, which is included in Table 4 and Table 5. 
-\end{response}
-
-\begin{point}\textit{
-	As the discussion mainly focuses on embedding strategy in Section 4.5, it's better to merge it to Different Embedding strategies in Section 4.3.
-}\end{point}
-
-\begin{response}
-	Thanks for the suggestions. We have revised the manuscript as suggested.
-\end{response}
-
-\begin{point}\textit{
-	The experiment setting in Section 4.4 should introduced ahead of experimental results in Section 4.2.
-}\end{point}
-
-\begin{response}
-	Thanks for the suggestions. We have revised the manuscript as suggested.
-\end{response}
-
-\begin{point}\textit{
-	The bagging algorithm is very similar to the attention mechanism, the discussion about the difference between them is necessary, or explain why the attention mechanism is not used in the proposed model.
-}\end{point}
-
-\begin{response}
-	Thanks for the suggestions. The ensemble strategy is based on policy gradient. We propose a neural network WTPN as the policy network. WTPN has some similarities to the attention mechanism, which contains a weighted sum operation. In the attention mechanism, the weights measure the similarity between queries(samples) and the keys(classifiers). However, in WTPN, the weights measure the importance of classifiers based on samples, which are different from the weights in the attention mechanism.
-\end{response}
-
-\begin{point}\textit{
-	Experiment about component analysis is absent, such as without social features, which is significant for rumor tracking.
-}\end{point}
-
-\begin{response}
-	Thanks for the suggestions. We have revised the manuscript as suggested and have added the component analysis.
-\end{response}
-
-\reviewersection
-
-\begin{point}\textit{
-Although the selected model well solves the task, the motivation to choose each component of the model is insufficient. More explanation of choosing components should be added.
-}\end{point}
-
-\begin{response}
-Thanks for pointing out this. We have revised the manuscript as suggested. 
-\end{response}
-
-\begin{point}\textit{
-The details of bootstrap sampling are lacking and the corresponding settings should be added.
-}\end{point}
-
-\begin{response}
-	Thanks for pointing out this. Our model is an ensemble model inspired by MoE (Mixtures of Experts). Bootstrap sampling is not proper to describe our model. We have revised the manuscript and have used the ``Ensemble model'' to describe our model.
-\end{response}
-
-\begin{point}\textit{
-The reproducibility of this paper is truly a concern to me. The authors did not clarify the source code publication. The experimental setting is not clear enough. This paper lacks some neglected details like the experimental setting, which affects the clarity of this paper. Many details, especially hyper-parameters should be clarified.
-}\end{point}
-
-\begin{response}
-	Thanks for pointing out this. We have revised the manuscript and added detailed settings of the experiment.
-\end{response}
-
-\begin{point}\textit{
-The multiplication operation of the predicted matrix $K_y$ and $W_y$ should be included in Fig. 4.
-}\end{point}
-
-\begin{response}
-	Thanks for pointing out this. We have revised the manuscript as suggested. 
-\end{response}
-
-\begin{point}\textit{
-The detailed motivation of the reinforcement learning component should be added.
-}\end{point}
-
-\begin{response}
-	Thanks for pointing out this. We have revised the manuscript as suggested. 
-\end{response}
-
-\begin{point}\textit{
-Maybe "ensemble learning" is more suitable to describe the proposed model than "aggregated learning".
-}\end{point}
-
-\begin{response}
-	Thanks for pointing out this.  We have revised the manuscript as suggested.
-\end{response}
-
-\begin{point}\textit{
-Section 3 should be given the full name, rather than the abbreviation.
-}\end{point}
-
-\begin{response}
-	Thanks for pointing out this.  We have revised the manuscript as suggested.
-\end{response}
-
-\reviewersection
-
-\begin{point}\textit{
-You assume that every tweet is related to a particular rumor, however, most tweets are not about rumors. How is this addressed? Do you only use rumor-based data? If so, the work suffers from a significant problem: if all these tweets are rumor-based, it is easy to assign them to their particular one. Rumor detection should focus on how to discover tweets when there is no prior ground truth regarding their being rumors.
-}\end{point}
-
-\begin{response}
-	Thanks for pointing out this. The datasets of this work are two public rumor-based datasets, which are widely used in the rumor-based research area. As introduced in Section 1, rumor detection is a pipeline task including rumor detection, rumor tracking, sentence classification, and veracity classification. Our work only addresses the rumor tracking task, because existing works for rumor tracking task has not been studied extensively. Firstly, existing work only treats rumor tracking as a sub-task in multi-task learning without specific optimizations. Besides, the existing settings of rumor tracking have some improprieties, because each tweet links to its source tweet that has high semantic similarity to the event. (See in Section 2.2) We provide a modified definition of this problem to make it more reasonable.
-\end{response}
-
-\begin{point}\textit{
-Besides, there is no overall motivation to use the architecture used (consisting of convolutions, 3 different types of embeddings, plus different other encodings and 4 different classifiers??). These choices are not motivated except with a brief literature reference and no proper mathematical or empirical evaluation. Indeed, the evaluation does not link these elements back to how effective they are. Also, there is no real motivation as to why bagging is at all relevant in this situation, especially since it is not used within neural network contexts often.
-}\end{point}
-
-\begin{response}
-Thanks for pointing out this. Our model is inspired by mixtures of experts (MoE). MoE is an ensemble model that contains multiple separate sub-models. Each sub-model is an expert that is trained on a region of input data. The data distribution of each tweet is different and we believe each rumor tweet has its suitable classifier. Therefore, instead of dividing the input data into different regions, RL-ERT adopts a policy gradient based neural network to generate a weight for each sub-model and then aggregates them together. Besides, the weight changes according to each input sample. Therefore, we use this structure to build an ensemble model to get a better performance on rumor tracking. 
-
-We have added the analysis of each component's performance. Also, our model is an ensemble model inspired by MoE (Mixtures of Experts). Bootstrap sampling is not proper to describe our model. We have revised the manuscript and have used the ``Ensemble model'' to describe our model.
-\end{response}
-
-\begin{point}
-	Some more detailed remarks:
-
-\begin{itemize}
-	\item Line 1: `brings explosive scale' $\to$ brings information on an massive scale.
-
-	\item Line 11: impracticable: impractical.
 	
-	\item It is a bit strong to talk about content-based detection to be focused only on tweets (line 17).
-
-	\item Line 33: `we proposed' $\to$ propose, check the use of verb tenses throughout the document.
-
-	\item Line 37: define `macrocosm'? Do you mean rumor tracking ecosystem?
+	\section*{Response to Reviewers' Comments}
 	
-	\item Line 63: if y is one-hot encoded, it is not necessarily an element of the rational numbers m, but rather the natural numbers m.
+	\textbf{Paper Title: Deep Reinforcement Learning based Ensemble Model for Rumor Tracking}
 	
-	\item Line 79: 'concat()' is not really a mathematical construct. The paper reads like it rather uses a lot of Python constructs as an approximation of a proper mathematical foundation.
+	\vspace{0.1cm}
 	
-	\item Line 84: a SGD model is used. But SGD can be used for whatever optimization-based model. Are you using feed-forwarded neural networks, LSTMs, convolution neural networks, etc.? And is this applied on TFIDF as a vector-representation of x being a single tweet with a number of words, or the tweet as a whole? This conflicts with the earlier pre-processing relying on embeddings. Is $y_S$ again a one-hot encoded vector?
+	\noindent
+	\textbf{Authors: Guohui Li, Ming Dong, Lingfeng Ming, Changyin Luo, Han Yu, Xiaofei Hu, Bolong Zheng}
 	
-	\item Line 92: BiLSTM: what are L and R, and how is R as an output to be found here as an input? L should be part of table 1. The architecture should be explained in more detail. Why are you using this particular kernel type? Why these abbreviations? Why no link with table 1 for all the variables and weights used?
+	\vspace{0.2cm}
+	\noindent
+	We appreciate the anonymous reviewers for reading carefully through our manuscript and providing many insightful comments and suggestions. We rewrite the manuscript to make the presentation more clearly and highlight some changes \textcolor{blue}{\textbf{in blue}} according to the reviewers' comments. In the following, we separately address the concerns from all the reviewers point by point.
 	
-	\item Line 106: TextCNN: by this time, another embedding is created and again there is no explanation as to how these convolutions work, or why the maxpooling could be beneficial.
+	% Let's start point-by-point with Reviewer 1
+	\reviewersection
 	
-	\item Line 115: By this point, you should have introduced figure 3 already to illustrate the different parts you discussed before. Also, split(), lower(), etc. again are not formal constructs, but pseudocode. The authors should provide a better formalization in combination with a consistent use of such formalization throughout the paper.
-
-\end{itemize}
-
-\end{point}
-
-\begin{response}
-	\begin{itemize}
-		\item Line 1: Thanks for the suggestions. We have revised the manuscript as suggested. 
+	
+	\begin{point}\textit{
+			Experiments are not enough such as component analysis is absent.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for the suggestions. We have revised the manuscript and have added the analysis of components in Section 4.3.
+	\end{response}
+	
+	\begin{point}\textit{
+			To distinguish, let m be in italics in the "m-way classification problem" in Section 2.2.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for the suggestions. We have revised the manuscript as suggested in Section 2.2.
+	\end{response}
+	
+	\begin{point}\textit{
+			The introduction of DPG and Weight-Tuning Policy Network is not clear enough.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for the suggestions. We have added more detailed descriptions of DPG and Weight-Tuning Policy Network in Section 3.4.
+	\end{response}
+	
+	\begin{point}\textit{
+			The aggregated models, called pairwise-add models are not enough, that is, the baseline that adds all the components of RL-BRT is absent.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for the suggestions. We have revised the manuscript as suggested. The baseline that adds all the components of RL-ERT is named ERT without RL, which is included in Table 4 and Table 5. 
+	\end{response}
+	
+	\begin{point}\textit{
+			As the discussion mainly focuses on embedding strategy in Section 4.5, it's better to merge it to Different Embedding strategies in Section 4.3.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for the suggestions. We have revised the manuscript as suggested.
+	\end{response}
+	
+	\begin{point}\textit{
+			The experiment setting in Section 4.4 should introduced ahead of experimental results in Section 4.2.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for the suggestions. We have revised the manuscript as suggested.
+	\end{response}
+	
+	\begin{point}\textit{
+			The bagging algorithm is very similar to the attention mechanism, the discussion about the difference between them is necessary, or explain why the attention mechanism is not used in the proposed model.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for the suggestions. The ensemble strategy is based on policy gradient. We propose a neural network WTPN as the policy network. WTPN has some similarities to the attention mechanism, which contains a weighted sum operation. In the attention mechanism, the weights measure the similarity between queries(samples) and the keys(classifiers). However, in WTPN, the weights measure the importance of classifiers based on samples, which are different from the weights in the attention mechanism.
+	\end{response}
+	
+	\begin{point}\textit{
+			Experiment about component analysis is absent, such as without social features, which is significant for rumor tracking.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for the suggestions. We have revised the manuscript as suggested and have added the component analysis in Section 4.3.
+	\end{response}
+	
+	\reviewersection
+	
+	\begin{point}\textit{
+			Although the selected model well solves the task, the motivation to choose each component of the model is insufficient. More explanation of choosing components should be added.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for pointing out this. We have revised the manuscript and have added the motivations in Section 2.3. 
+	\end{response}
+	
+	\begin{point}\textit{
+			The details of bootstrap sampling are lacking and the corresponding settings should be added.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for pointing out this. Our model is an ensemble model inspired by MoE (Mixtures of Experts). Bootstrap sampling is not proper to describe our model. We have revised the manuscript and have used the ``Ensemble model'' to describe our model.
+	\end{response}
+	
+	\begin{point}\textit{
+			The reproducible of this paper is truly a concern to me. The authors did not clarify the source code publication. The experimental setting is not clear enough. This paper lacks some neglected details like the experimental setting, which affects the clarity of this paper. Many details, especially hyper-parameters should be clarified.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for pointing out this. We have revised the manuscript and added detailed settings of the experiment in Section 4.2.
+	\end{response}
+	
+	\begin{point}\textit{
+			The multiplication operation of the predicted matrix $K_y$ and $W_y$ should be included in Fig.4.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for pointing out this. We have revised Fig.4 as suggested by including the multiplication operation of the predicted matrix $K_y$ and $W_y$. 
+	\end{response}
+	
+	\begin{point}\textit{
+			The detailed motivation of the reinforcement learning component should be added.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for pointing out this. We have revised the manuscript as suggested and have added the detailed motivation of the reinforcement learning at Line 120 $\sim$ Line 125. 
+	\end{response}
+	
+	\begin{point}\textit{
+			Maybe "ensemble learning" is more suitable to describe the proposed model than "aggregated learning".
+	}\end{point}
+	
+	\begin{response}
+		Thanks for pointing out this.  We have revised the manuscript as suggested.
+	\end{response}
+	
+	\begin{point}\textit{
+			Section 3 should be given the full name, rather than the abbreviation.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for pointing out this.  We have revised the manuscript as suggested.
+	\end{response}
+	
+	\reviewersection
+	
+	\begin{point}\textit{
+			You assume that every tweet is related to a particular rumor, however, most tweets are not about rumors. How is this addressed? Do you only use rumor-based data? If so, the work suffers from a significant problem: if all these tweets are rumor-based, it is easy to assign them to their particular one. Rumor detection should focus on how to discover tweets when there is no prior ground truth regarding their being rumors.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for pointing out this. The datasets of this work are two public rumor-based datasets, which are widely used in the rumor-based research area. As introduced in Section 1, rumor detection is a pipeline task including rumor detection, rumor tracking, sentence classification, and veracity classification. Our work only addresses the rumor tracking task, because existing works for rumor tracking task has not been studied extensively. Firstly, existing work only treats rumor tracking as a sub-task in multi-task learning without specific optimizations. Besides, the existing settings of rumor tracking have some improprieties, because each tweet links to its source tweet that has high semantic similarity to the event. (See in Section 2.2) We provide a modified definition of this problem to make it more reasonable.
+	\end{response}
+	
+	\begin{point}\textit{
+			Besides, there is no overall motivation to use the architecture used (consisting of convolutions, 3 different types of embeddings, plus different other encodings and 4 different classifiers??). These choices are not motivated except with a brief literature reference and no proper mathematical or empirical evaluation. Indeed, the evaluation does not link these elements back to how effective they are. Also, there is no real motivation as to why bagging is at all relevant in this situation, especially since it is not used within neural network contexts often.
+	}\end{point}
+	
+	\begin{response}
+		Thanks for pointing out this. Our model is inspired by mixtures of experts (MoE). MoE is an ensemble model that contains multiple separate sub-models. Each sub-model is an expert that is trained on a region of input data. The data distribution of each tweet is different and we believe each rumor tweet has its suitable classifier. Therefore, instead of dividing the input data into different regions, RL-ERT adopts a policy gradient based neural network to generate a weight for each sub-model and then aggregates them together. Besides, the weight changes according to each input sample. Therefore, we use this structure to build an ensemble model to get a better performance on rumor tracking. 
 		
-		\item Line 11: Thanks for the suggestions. We have revised the manuscript as suggested. 
+		We have added the analysis of each component's performance. Also, our model is an ensemble model inspired by MoE (Mixtures of Experts). Bootstrap sampling is not proper to describe our model. We have revised the manuscript and have used the ``Ensemble model'' to describe our model.
+	\end{response}
+	
+	\begin{point}
+		Some more detailed remarks:
 		
-		\item line 17: Thanks for the suggestions. We have revised the manuscript as suggested.
+		\begin{itemize}
+			\item Line 1: `brings explosive scale' $\to$ brings information on an massive scale.
+			
+			\item Line 11: impracticable: impractical.
+			
+			\item It is a bit strong to talk about content-based detection to be focused only on tweets (line 17).
+			
+			\item Line 33: `we proposed' $\to$ propose, check the use of verb tenses throughout the document.
+			
+			\item Line 37: define `macrocosm'? Do you mean rumor tracking ecosystem?
+			
+			\item Line 63: if y is one-hot encoded, it is not necessarily an element of the rational numbers m, but rather the natural numbers m.
+			
+			\item Line 79: 'concat()' is not really a mathematical construct. The paper reads like it rather uses a lot of Python constructs as an approximation of a proper mathematical foundation.
+			
+			\item Line 84: a SGD model is used. But SGD can be used for whatever optimization-based model. Are you using feed-forwarded neural networks, LSTMs, convolution neural networks, etc.? And is this applied on TFIDF as a vector-representation of x being a single tweet with a number of words, or the tweet as a whole? This conflicts with the earlier pre-processing relying on embeddings. Is $y_S$ again a one-hot encoded vector?
+			
+			\item Line 92: BiLSTM: what are L and R, and how is R as an output to be found here as an input? L should be part of table 1. The architecture should be explained in more detail. Why are you using this particular kernel type? Why these abbreviations? Why no link with table 1 for all the variables and weights used?
+			
+			\item Line 106: TextCNN: by this time, another embedding is created and again there is no explanation as to how these convolutions work, or why the maxpooling could be beneficial.
+			
+			\item Line 115: By this point, you should have introduced figure 3 already to illustrate the different parts you discussed before. Also, split(), lower(), etc. again are not formal constructs, but pseudocode. The authors should provide a better formalization in combination with a consistent use of such formalization throughout the paper.
+			
+		\end{itemize}
 		
-		\item Line 33: Thanks for point out this. We have revised the manuscript as suggested.
-		
-		\item Line 37: Thanks for the suggestions. We have revised the manuscript as suggested.
-		
-		\item Line 63: Thanks for the suggestions. We have revised the manuscript as suggested.
-		
-		\item Line 79: Thanks for the suggestions. We have revised the manuscript as suggested.
-		
-		\item Line 84: Thanks for point out this. We are sorry for the confusion. SGD model in this work is based on an SVM classifier, and we add the details in Section 2.3.1. We have revised the manuscript and have changed the name to SVM-SGD. Besides, the TFIDF is calculated on a corpus with all tweets. In RL-ERT, embedding strategies of sub-models are different. As shown in Fig.3, Naive Bayes and SVM-SGD adopt TFIDF as the embedding strategy. $y_S$ is the predicted result of SVM-SGD, which is an m-dimensional vector and is not affected by the embedding strategy.
-		
-		\item Line 92: Thanks for the suggestions. We have revised the manuscript as suggested. To avoid confusion, we rewrote this part and removed the previous notations $x_tL$ and $x_tR$. To make Table 1 not too large, we only add frequently used notations to it.
-		
-		\item Line 106: Thanks for point out this. We have revised the manuscript and add more details of TextCNN to explain the motivations.
-		
-		\item Line 115: Thanks for the suggestions. We have revised the manuscript as suggested.
-	\end{itemize}
-\end{response}
-
+	\end{point}
+	
+	\begin{response}
+		\begin{itemize}
+			\item Line 1: Thanks for the suggestions at Line 1, Line 11, Line 17, Line 33, and Line 63. We have revised the manuscript as suggested. 
+			
+			\item Line 37: Thanks for the suggestions. We intend to use a word to refer to the state of being one complete whole or condition of being united. However, `macrocosm' is not proper, and we have replaced it with `unity'.
+			
+			\item Line 79: Thanks for the suggestions. We have revised the manuscript and have replaced `concat()' with $[\cdot]$ by following existing papers.
+			
+			\item Line 84: Thanks for point out this. We are sorry for the confusion. SGD model in this work is based on an SVM classifier, and we add the details in Section 2.3.1. We have revised the manuscript and have changed the name to SVM-SGD. Besides, the TFIDF is calculated on a corpus with all tweets. In RL-ERT, embedding strategies of sub-models are different. As shown in Fig.3, Naive Bayes and SVM-SGD adopt TFIDF as the embedding strategy. $y_S$ is the predicted result of SVM-SGD, which is an m-dimensional vector and is not affected by the embedding strategy.
+			
+			\item Line 92: Thanks for the suggestions. We have revised the manuscript as suggested. To avoid confusion, we rewrote this part and removed the previous notations $x_tL$ and $x_tR$. To make Table 1 not too large, we only add frequently used notations to it.
+			
+			\item Line 106: Thanks for point out this. We have revised the manuscript and add more details of TextCNN to explain the motivations.
+			
+			\item Line 115: Thanks for the suggestions. We have revised the manuscript as suggested in Fig.3. Besides, we have revised other use of formalization.
+		\end{itemize}
+	\end{response}
+	
 \end{document}
 
