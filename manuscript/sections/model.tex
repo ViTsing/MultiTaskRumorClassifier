@@ -1,4 +1,4 @@
-\section{\textcolor{blue}{Deep Reinforcement Learning based Ensemble Model for Rumor Tracking}}
+\section{\textcolor{blue}{Deep Reinforcement Learning based Ensemble Model}}
 \label{sec:model}
 
 \textcolor{blue}{RL-BRT model is inspired by Mixture of Experts model (MoE) \cite{DBLP:conf/nips/MillerU96}. MoE is an ensemble model that contains multiple separate sub-models. Each sub-model is an expert that is trained on a region of input data. The data distribution of each tweet is different and we believe each rumor tweet has its suitable classifier. Therefore, instead of dividing the input data into different regions, RL-ERT adopts a policy gradient based neural network to generate a weight for each sub-model and then aggregates them together. Besides, the weight changes according to each input sample.}
